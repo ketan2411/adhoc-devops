@@ -1,5 +1,5 @@
 import os
-name = "hello-world"
+name = "alpine"
 for nw in range(100):
 	image = "sudo docker run --name dadhoc" + str(nw) + " -d  "+ str(name) + " --restart unless-stopped /bin/bash"
 
