@@ -15,3 +15,37 @@
  4. Running docker command
     docker images
 _________________________________________________
+## task3 ##
+
+ 1.cloning tha git repo
+    git clone https://github.com/mdn/beginner-html-site-styled.git
+    cd beginner-html-site-styled
+    
+ 2. creating Dockerfile
+     from nginx:alpine
+     COPY . /usr/share/nginx/html
+   
+ 3. Building the image
+     sudo docker build -t ketan24/htmlpage:v1 .
+     
+ 4. pushing the image to docker hub
+     sudo docker push  ketan24/htmlpage:v1
+     
+ 5. running the container
+     sudo docker run -d --name mymozila -p 80:80 htmlpage:v1
+     
+ 6. pulling watchtower image
+    docker pull v2tec/watchtower
+    
+ 7. running watchtower container
+     sudo docker run -d   --name watchtower   -v /var/run/docker.sock:/var/run/docker.sock   v2tec/watchtower mymozila
+     
+ 8. comitting changes in index.html and updating the new image on docker hub
+     sudo docker build -t ketan24/htmlpage:v1 .
+      sudo docker push  ketan24/htmlpage:v1
+     
+ 
+
+    
+ 
+
