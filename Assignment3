@@ -1,0 +1,17 @@
+## task2 ##
+ 1. Creating a Dockerfile
+  FROM ubuntu
+  maintainer ketansharma587@gmail.com
+  RUN apt-get update
+  RUN apt install nano
+  RUN apt install docker.io -y
+  
+ 2. Building image from dockerfile
+  sudo docker build -t docker_ubuntu .
+  
+ 3. Creating container
+    sudo docker run -it --name docker_ubuntu -v /var/run/docker.sock:/var/run/docker.sock ubuntu bash
+    
+ 4. Running docker command
+    docker images
+_________________________________________________
