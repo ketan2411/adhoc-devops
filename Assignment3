@@ -1,3 +1,61 @@
+## task1 ###
+ Done using python django framework and mysql database
+ 
+ 1. creating Dockerfile for DJango
+  FROM ubuntu
+  maintainer ketansharma587@gmail.com 
+  RUN apt-get update
+  RUN apt install nano
+  RUN apt install python3-pip -y
+  RUN apt-get install mysql-client -y
+  RUN pip3 install django
+  RUN mkdir djangoapp
+  RUN cd djangoapp
+  RUN django-admin startproject djangoproject .
+  RUN cd djangoproject
+  CMD python3 manage.py runserver 0.0.0.0:80
+  
+ 2. creating docker-compose.yaml for django image
+  version: "3.5"
+  services:
+   ketan:
+    build: .
+    container_name: django_cont
+    image: django_ubuntu
+    ports:
+     - "8000:80"
+  networks:
+     - django_nw
+networks:
+ django_nw:
+  driver: bridge
+  
+ 3. building image and running up the container
+    docker-compose up
+    
+ 4. Writing docker compose file for mysql
+    version: "3.5"
+    services:
+     ketan:
+      image: mysql
+      container_name: mysql2
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
+      image: mysql
+      environment:
+          MYSQL_ROOT_PASSWORD: root
+      networks:
+       - django_nw
+    networks:
+     django_nw:
+      driver: bridge
+      
+ 5. Running up the container
+    docker-compose up
+    
+ 6. Configuring setting.py in django container
+_________________________________________________________
+## task2 ##
 ## task2 ##
  1. Creating a Dockerfile
   FROM ubuntu
