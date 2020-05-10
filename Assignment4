@@ -1,13 +1,32 @@
 #task 1#
 
-##Dockerfile
-FROM ubuntu
-RUN apt-get update
-RUN apt-get install nano
-RUN apt install ansible -y
-RUN apt install docker.io -y
+#writing the script
+ - hosts: localhost
+   tasks:
 
-  #Creating docker compose up
+    - name: ping command container
+      command:  docker run -d --name container{{ item }} alpine ping -w 3000 fb.com
+      register: x
+      with_items:
+        - [1,2,3,4,5,6,7,8,9,10]
+
+    - name: output
+      debug: var=x.results
+      
+
+##Dockerfile
+  FROM ubuntu
+  maintainer ketansharma587@gmail.com
+
+  RUN apt-get update
+  RUN apt install docker.io -y
+  RUN apt install ansible -y
+  CMD docker pull alpine
+  COPY container.yaml ./
+  CMD ansible-playbook container.yaml
+
+
+  #Creating docker compose
   version: "3.5"
   services:
     App:
@@ -17,28 +36,4 @@ RUN apt install docker.io -y
       volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
 
-#Accessing ansible
-cd /etc/ansible/
-
-#Creating a directory
-mkdir playbooks
-
-#Creating a script to create 10 container of alpine image with parent command fb.com
-nano ansct.yaml
-
-##ansct.yaml
----
- - hosts: localhost
-   tasks:
-    - name: Pulling alpine image
-      command: docker pull alpine
-    - name: running ping command
-      command:  docker run --name kc"{{ item }}" alpine ping fb.com 
-      with_items:
-        - [1,2,3,4,5,6,7,8,9,10]
-
-#Executing the playbook
-ansible-playbook ansct.yaml
-
-#Listing docker containers
-docker ps
+# docker-compose up
